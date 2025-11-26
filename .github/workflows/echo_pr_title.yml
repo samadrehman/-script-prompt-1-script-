@@ -1,0 +1,15 @@
+name: Echo PR Title
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  check_title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process Title
+        run: |
+          echo "The PR title is: ${{ github.event.pull_request.title }}"
+          # In a real environment, an attacker looks for a step that executes an arbitrary command like this:
+          echo "::set-output name=title::${{ github.event.pull_request.title }}"
+          # A vulnerability can occur if the title contains shell commands or special Action delimiters.
